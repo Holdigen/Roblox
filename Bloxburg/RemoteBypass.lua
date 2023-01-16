@@ -1,5 +1,3 @@
---// Remote Bypass by Hold#4564
-
 local remotes = {}
 
 for i, v in next, getconnections(game:GetService("ReplicatedStorage").Modules.DataService.DescendantAdded) do
