@@ -1,14 +1,22 @@
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local dataService = replicatedStorage.Modules.DataService
+
+local remoteAdded = getconnections(dataService.DescendantAdded)[1].Function
+local hashRemotes = getupvalue(remoteAdded, 1)
+local hashNames = getupvalue(getupvalue(remoteAdded, 2), 1)
+
 local remotes = {}
 
-for i, v in next, getconnections(game:GetService("ReplicatedStorage").Modules.DataService.DescendantAdded) do
-    if getupvalues(v.Function)[2] then
-        local raw_hashes = getupvalue(v.Function, 1)
-        local keys_hashes = getupvalue(getupvalue(getupvalue(getupvalue(v.Function, 3).WaitEvent, 1), 1), 1)
-
-        for i, v in next, keys_hashes do
-            remotes[i] = raw_hashes[v]
-        end
-    end
+for hash, name in next, hashNames do
+    remotes[name:gsub("F_", "")] = hashRemotes[hash]
 end
 
-remotes["ExitBuildMode"]:FireServer() -- go in build mode then execute this remote to test
+--[[
+    to print all remotes run this:
+    table.foreach(remotes, print)
+
+    a remote to test this (must be in the pizza delivery job)
+    local result = remotes.UsePizzaMoped:InvokeServer({})
+]]
+
+return remotes
