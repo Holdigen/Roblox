@@ -1,22 +1,33 @@
+-- services
 local replicatedStorage = game:GetService("ReplicatedStorage")
-local dataService = replicatedStorage.Modules.DataService
 
-local remoteAdded = getconnections(dataService.DescendantAdded)[1].Function
-local hashRemotes = getupvalue(remoteAdded, 1)
-local hashNames = getupvalue(getupvalue(remoteAdded, 2), 1)
+-- variables
+local dataService = replicatedStorage.Modules.DataService
 
 local remotes = {}
 
-for hash, name in next, hashNames do
-    remotes[name:gsub("F_", "")] = hashRemotes[hash]
+for _, garbage in next, getgc() do
+    if type(garbage) == "function" then
+        local info = getinfo(garbage)
+
+        if info.source:find("@") or not islclosure(garbage) then
+            continue
+        end
+        if not info.source:find(dataService.Name) or getconnections(dataService.DescendantAdded)[1 or 2].Function ~= garbage then
+            continue
+        end
+
+        local hashRemotes = getupvalue(garbage, 1)
+        local hashNames = getupvalue(getupvalue(garbage, 2), 1)
+
+        for hash, name in next, hashNames do
+            remotes[string.gsub(name, "F_", "")] = hashRemotes[hash]
+        end
+
+        break
+    end
 end
 
---[[
-    to print all remotes run this:
-    table.foreach(remotes, print)
-
-    a remote to test this (must be in the pizza delivery job)
-    local result = remotes.UsePizzaMoped:InvokeServer({})
-]]
+-- Example: remotes.ExitBuild:FireServer({})
 
 return remotes
