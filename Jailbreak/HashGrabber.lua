@@ -28,16 +28,6 @@ do
     end
 end
 
--- ignore (testing) --
-for i, v in next, ids do
-    if i:find("!4849") then
-        --print(v, "lol")
-        --setclipboard(v)
-    end
-end
---do return end
--- ignore --
-
 -- functions
 local function getHash(func, blacklisted)
     blacklisted = blacklisted or {}
