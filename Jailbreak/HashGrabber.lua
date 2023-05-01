@@ -185,12 +185,12 @@ for _, garbage in next, getgc() do
             local constants = getconstants(garbage)
 
             if table.find(constants, "Enter") and table.find(constants, "IsVehicle") and table.find(constants, "Duration") then
-                hashes["Hijack"] = getupvalue(getupvalue(garbage, 1), 1)
+                --hashes["Hijack"] = getupvalue(getupvalue(garbage, 1), 1) soon :(
                 hashes["Eject"] = getupvalue(getupvalue(garbage, 1), 2)
                 hashes["Enter"] = getupvalue(getupvalue(garbage, 1), 3)
             end
             if table.find(constants, "GetLocalEquipped") and table.find(constants, "Reloading") then
-                hashes["Arrest"] = getupvalue(garbage, 7)
+                --hashes["Arrest"] = getupvalue(garbage, 7) soon
             end
             if table.find(constants, "SewerHatch") and table.find(constants, "Pull Open") then
                 hashes["Escape"] = getproto(garbage, 1)
@@ -211,10 +211,12 @@ for _, garbage in next, getgc() do
                 hashes["ToggleLights"] = garbage
             end
             if table.find(constants, "Rob") and table.find(constants, "IsRob") and table.find(constants, "Duration") then
-                local hash, founder, line = getHash(getupvalue(garbage, 1))
+                --local hash, founder, line = getHash(getupvalue(garbage, 1))
                 
-                hashes["EndRob"] = hash
-                hashes["StartRob"] = getHash(getupvalue(garbage, 1), {hash})
+                --hashes["EndRob"] = hash
+                --hashes["StartRob"] = getHash(getupvalue(garbage, 1), {hash})
+
+                -- also soon
             end
         end
     end
@@ -242,7 +244,6 @@ do
         hashes["UnequipGun"] = hash
     end ]]
 end
-
 -- auto filling hash ids
 for name, func in next, hashes do
     if rawHashes[func] then
