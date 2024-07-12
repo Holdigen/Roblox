@@ -56,6 +56,6 @@ return cleanTableIndexing, {
     Why is this helpful?
     Well, maybe you are rewriting your sources and want to switch from table["test"] to just indexing it direct like this table.test
 
-    made by Hold#4564
+    made by leon4564
     :D
 ]]
