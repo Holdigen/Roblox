@@ -625,6 +625,12 @@ function Library:Window(title, smalltitle)
 
         MainPage.CanvasSize = UDim2.new(0, 0, 0, MainPageList.AbsoluteContentSize.Y)
 
+	local Settings = {}
+	function Settings:ChangeText(newText)
+		TextBoxInput.Text = newText
+	end
+	return Settings
+
     end
 
     function Window:Dropdown(dropdownname, dropdowndescription, list, callback)
