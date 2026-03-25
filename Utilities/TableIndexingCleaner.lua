@@ -1,3 +1,5 @@
+-- README: this is old and was made when i used to learn lua
+
 local function removeIndexesFromString(stringToRemove, index1, index2)
     local part1 = string.sub(stringToRemove, 1, index1)
     local part2 = string.sub(stringToRemove, index2 + 1, string.len(stringToRemove))
